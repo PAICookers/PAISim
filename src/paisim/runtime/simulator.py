@@ -228,7 +228,7 @@ class Simulator:
         return sim
 
     @property
-    def artifact(self) -> ArtifactView | None:
+    def artifact(self) -> "ArtifactView | None":
         """Return detached artifact metadata, or ``None`` for raw-frame runs."""
         return self._artifact_view
 

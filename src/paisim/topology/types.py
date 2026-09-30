@@ -139,17 +139,17 @@ class Chip:
     """Runtime container for one chip's configured cores and threads."""
 
     coord: ChipCoord
-    cores: dict[CoreCoord, Core] = field(default_factory=dict)
-    threads: dict[ThreadId, CoreThread] = field(default_factory=dict)
+    cores: dict[CoreCoord, "Core"] = field(default_factory=dict)
+    threads: dict[ThreadId, "CoreThread"] = field(default_factory=dict)
 
-    def core(self, coord: CoreCoord) -> Core:
+    def core(self, coord: CoreCoord) -> "Core":
         """Return a configured core or raise ``KeyError`` for an empty slot."""
         try:
             return self.cores[coord]
         except KeyError as exc:
             raise KeyError(f"unconfigured core {CoreAddr(self.coord, coord)}") from exc
 
-    def put(self, core: Core) -> None:
+    def put(self, core: "Core") -> None:
         """Install a core after checking that it belongs to this chip."""
         if core.addr.chip != self.coord:
             raise ValueError("core belongs to another chip")

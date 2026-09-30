@@ -5,6 +5,10 @@
 - Use short, explicit `snake_case` names; avoid vague public names such as
   `*Spec` and `EventSink`.
 - Do not use `from __future__ import annotations`.
+- Keep runtime annotations safe across every supported Python version: names
+  imported only under `TYPE_CHECKING` must be quoted forward references (or be
+  otherwise available at runtime), and import smoke checks should cover the
+  minimum and maximum supported Python versions after annotation changes.
 - Public NumPy arrays use fixed dtypes and `numpy.typing.NDArray`.
 - Use `TraceFilter`, `SimEvent`, and `SimEventHandler` for observation APIs.
   Callback failure must not pretend that simulator state rolled back.
