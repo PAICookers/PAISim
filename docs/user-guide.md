@@ -219,9 +219,7 @@ while sim.advance(1):
     step = next((event for event in current if event.kind == "step"), None)
     if step is None:
         continue
-    outputs = [
-        event for event in current if event.direction is PortDirection.I2E
-    ]
+    outputs = [event for event in current if event.direction is PortDirection.I2E]
     print(f"thread={step.thread} tick={step.tick} words={[e.word for e in outputs]}")
 ```
 

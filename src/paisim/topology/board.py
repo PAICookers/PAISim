@@ -159,7 +159,7 @@ _ARRAY2X2 = BoardDecl(
 
 
 @final
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class SingleBoard(TargetBoard):
     """One-chip preset at ``ChipCoord(0, 0)`` with one CPU port and no links."""
 
@@ -170,7 +170,7 @@ class SingleBoard(TargetBoard):
 
 
 @final
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class Array2x2Board(TargetBoard):
     """Four-chip X/Y mesh preset with one CPU port per chip."""
 

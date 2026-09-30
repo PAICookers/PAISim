@@ -9,6 +9,9 @@
   imported only under `TYPE_CHECKING` must be quoted forward references (or be
   otherwise available at runtime), and import smoke checks should cover the
   minimum and maximum supported Python versions after annotation changes.
+- Exercise frozen dataclass mutation guards on every supported Python minor;
+  inherited `slots=True` dataclasses can generate incompatible assignment
+  behavior across Python versions.
 - Public NumPy arrays use fixed dtypes and `numpy.typing.NDArray`.
 - Use `TraceFilter`, `SimEvent`, and `SimEventHandler` for observation APIs.
   Callback failure must not pretend that simulator state rolled back.

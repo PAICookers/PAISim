@@ -71,7 +71,14 @@ sim.run()
 需要按线程步观察边界时，选择 `PROGRESS` 并使用 `advance(1)`：
 
 ```python
-from paisim import PortDirection, Recorder, Simulator, TerminalPrinter, TraceFilter, TraceLevel
+from paisim import (
+    PortDirection,
+    Recorder,
+    Simulator,
+    TerminalPrinter,
+    TraceFilter,
+    TraceLevel,
+)
 
 recorder = Recorder(
     trace_filter=TraceFilter(level=TraceLevel.PROGRESS),
@@ -84,9 +91,7 @@ while sim.advance(1):
     recorder.clear()
     step = next((item for item in new_records if item.kind == "step"), None)
     if step is not None:
-        outputs = [
-            item for item in new_records if item.direction is PortDirection.I2E
-        ]
+        outputs = [item for item in new_records if item.direction is PortDirection.I2E]
         print(f"thread={step.thread} tick={step.tick} outputs={outputs}")
 ```
 
