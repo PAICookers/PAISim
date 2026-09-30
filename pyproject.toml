@@ -1,0 +1,55 @@
+[project]
+name = "paisim"
+version = "0.1.0"
+description = "Deterministic object-oriented functional simulator for PAICORE 2.5"
+authors = [{ name = "Ziru Pan", email = "zrpan@stu.pku.edu.cn" }]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2,<3; platform_machine != 'armv7l'",
+    "numpy==1.26.4; platform_machine == 'armv7l'",
+    "paicorelib>=2.0.0,<3",
+    "protobuf>=5.27.1,<7",
+]
+maintainers = [{ name = "Ziru Pan", email = "zrpan@stu.pku.edu.cn" }]
+classifiers = [
+    "Development Status :: 4 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["PAICORE", "neuromorphic-chip", "simulator"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-cov>=6,<8"]
+
+[build-system]
+requires = ["uv_build>=0.11,<0.13"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+branch = true
+source = ["paisim"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+
+[tool.ruff]
+target-version = "py311"
+exclude = ["src/paisim/_generated/**"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

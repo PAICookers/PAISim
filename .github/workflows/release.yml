@@ -1,0 +1,32 @@
+# Publish the tagged package to PyPI through PyPI Trusted Publishing.
+
+name: Upload Python Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.2.0
+
+      - name: Install Python 3.14
+        run: uv python install 3.14
+
+      - name: Build
+        run: uv build
+
+      - name: Publish
+        run: uv publish

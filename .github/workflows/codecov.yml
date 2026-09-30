@@ -1,0 +1,64 @@
+name: Pytest & code coverage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/codecov.yml"
+      - "pyproject.toml"
+      - "uv.lock"
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      CI_ENV: "true"
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@v10.2.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the project
+        run: uv sync --locked --dev
+
+      - name: Run tests
+        run: >-
+          uv run --frozen pytest --cov=paisim --cov-branch
+          --cov-report=term-missing --cov-report=xml:coverage.xml
+          --junitxml=junit.xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          fail_ci_if_error: true
+          report_type: coverage
+          files: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: PAICookers/PAISim
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          fail_ci_if_error: true
+          report_type: test_results
+          files: junit.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: PAICookers/PAISim
