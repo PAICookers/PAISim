@@ -1,0 +1,6 @@
+# Shared codebase-memory index scope.
+*
+!src/
+!src/**
+!tests/
+!tests/**
