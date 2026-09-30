@@ -15,7 +15,7 @@ dependencies = [
 ]
 maintainers = [{ name = "Ziru Pan", email = "zrpan@stu.pku.edu.cn" }]
 classifiers = [
-    "Development Status :: 4 - Alpha",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
